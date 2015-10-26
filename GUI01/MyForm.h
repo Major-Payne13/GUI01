@@ -113,26 +113,34 @@ namespace GUI01 {
 		}
 	
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		times = 0;
-		times++;
-		if (comboBox1->SelectedItem == L"Fight")
-	{
-		textBox1->Text = "You died.";
-	}
-	else
-		textBox1->Text = "You got away!";
-
-		/*
 		
-		if (times % 2 == 1 && times != 1)
+		times++; 
+		
+		if (comboBox1->SelectedItem == L"Fight" && times == 1)
 		{
-			textBox1->Text = "";
+			textBox1->Text = "You died.";
 		}
-		times++;
-			textBox1->Text =  "A button appeared!";
+		else
+			if (comboBox1->SelectedItem == L"RUN!!!" && times == 1)
+		{
+			button1->Text = "OK";
+			textBox1->Text = "You got away!\r\n\r\n(PRESS \"OK\" TO CONTINUE) ";
+			comboBox1->Items->Clear();
 
-			button2->Visible = true;
-			button1->Visible = false;*/
+			comboBox1->Text = "";
+		}
+		if (times == 2 && comboBox1->Text == "")
+		{
+			button1->Text = "continue";
+			textBox1->Text = "You take a break from running and you realize you are very hungry and thirsty.";
+			textBox1->Text = textBox1->Text + "  You feel as if you might die if you do not get food or water soon.";
+			textBox1->Text = textBox1->Text + "  You do not have anything on you, and your sword is too dull to kill anything.";
+			textBox1->Text = textBox1->Text + "  You see smoke comming from a building not far away. \r\n\r\nWHAT DO YOU DO ? ";
+			
+			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Go to the house", L"Stay put"});
+		}
+	
+
 		
 	}
 	private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -141,18 +149,7 @@ namespace GUI01 {
 	}
 	
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-		
-	/*	times++;
-		if (times % 2 == 0)
-		{
-			textBox1->Text = "";
-		}
-		
-			textBox1->Text = "A button appeared!";
-			button1->Visible = true;
-			button2->Visible = false;
-		*/
-		
+	
 	}
 private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 	
