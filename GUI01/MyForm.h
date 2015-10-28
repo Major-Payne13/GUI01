@@ -116,17 +116,19 @@ namespace GUI01 {
 		
 		times++; 
 		
-		if (comboBox1->SelectedItem == L"Fight" && times == 1)
+		if (comboBox1->SelectedItem == L"Fight" && times == 2)
 		{
 			textBox1->Text = "You died.";
+			times = 0;
+			comboBox1->Items->Clear();
+
 		}
 		else
-			if (comboBox1->SelectedItem == L"RUN!!!" && times == 1)
+			if (comboBox1->SelectedItem == L"RUN!!!" && times == 2)
 		{
 			button1->Text = "OK";
 			textBox1->Text = "You got away!\r\n\r\n(PRESS \"OK\" TO CONTINUE) ";
 			comboBox1->Items->Clear();
-
 			comboBox1->Text = "";
 		}
 		if (times == 2 && comboBox1->Text == "")
