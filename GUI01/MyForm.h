@@ -115,7 +115,7 @@ namespace GUI01 {
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		
 		times++; 
-		
+		// create a starting page (times == 1)
 		if (comboBox1->SelectedItem == L"Fight" && times == 2)
 		{
 			textBox1->Text = "You died.";
