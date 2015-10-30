@@ -164,7 +164,7 @@ namespace GUI01 {
 			textBox1->Text = textBox1->Text + "  You do not have anything on you, and your sword is too dull to kill anything.";
 			textBox1->Text = textBox1->Text + "  You see smoke comming from a building not far away. \r\n\r\nWHAT DO YOU DO ? ";
 			comboBox1->Visible = true;
-			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Go to the house", L"Search for food somewhere else"});
+			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Go to the building", L"Search for food somewhere else"});
 		}
 		if (times == 4 && comboBox1->SelectedItem == L"Search for food somewhere else" || times == 5 && comboBox1->SelectedItem == L"Search for food somewhere else")
 		{
@@ -184,7 +184,33 @@ namespace GUI01 {
 				dead = false;
 			}
 		}
-		
+		else
+			if (dead == false && comboBox1->SelectedItem == L"Go to the building" && times == 4)
+			{
+				textBox1->Text = "You walk up to the building and read the sign: \r\n\r\n \"Berdan's Blacksmith Shop\" \r\n\r\n You smell a pleasant smell inside.  You enter. ";
+				comboBox1->Visible = false;
+				button1->Text = "Continue";
+			}
+		if (dead == false && times == 5)
+		{
+			textBox1->Text = "You enter and see many wepons and armor hanging around the shop.  \r\n\r\t \"Hello?\" you call. \r\n\r\nA muscular man appears from the backroom door.";
+			textBox1->Text = textBox1->Text + "\r\n\r\t\"Hello!  I haven't seen a customer in a while.\" he proclames.  His deep voice startles you.\r\n\r\n ";
+			textBox1->Text = textBox1->Text + "WHAT DO YOU SAY TO HIM?";
+			comboBox1->Visible = true;
+			comboBox1->Items->Clear();
+			comboBox1->Text = "";
+			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Be polite", L"Be strait forward", L"Never mind"});
+			
+		}
+	//write a line that ignores if nothing is selected and button is hit.
+		if (dead == false && times == 6 && comboBox1->SelectedItem == L"Be strait forward")
+		{
+			textBox1->Text = "\r\t\"Hi. I will buy some equiptment from you if you feed me\" ";
+			comboBox1->Visible = false;
+			comboBox1->Items->Clear();
+			comboBox1->Text = "";
+			textBox1->Text = textBox1->Text + "\r\n\r\n\r\t\"If you want some of my food, it'll be extra.\"";
+		}
 	
 
 		
