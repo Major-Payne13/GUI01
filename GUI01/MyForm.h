@@ -47,6 +47,7 @@ namespace GUI01 {
 	protected:
 
 	private:
+		bool dead = false;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -71,7 +72,7 @@ namespace GUI01 {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(184, 23);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"Countinue";
+			this->button1->Text = L"Play";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
@@ -82,19 +83,18 @@ namespace GUI01 {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(310, 139);
 			this->textBox1->TabIndex = 1;
-			this->textBox1->Text = L"On your walk through the forrest, you encounter a mama bear protecting her cubs. "
-				L" She looks quite hostile.  You have a dull sward with you.\r\n\r\nWHAT DO YOU DO\? \r\n"
-				L"";
+			this->textBox1->Text = L"Welcome to this adventure story.  Press \"Play\" to begin.";
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// comboBox1
 			// 
 			this->comboBox1->FormattingEnabled = true;
 			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
-			this->comboBox1->Location = System::Drawing::Point(105, 157);
+			this->comboBox1->Location = System::Drawing::Point(77, 157);
 			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(121, 21);
+			this->comboBox1->Size = System::Drawing::Size(184, 21);
 			this->comboBox1->TabIndex = 3;
+			this->comboBox1->Visible = false;
 			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::comboBox1_SelectedIndexChanged);
 			// 
 			// MyForm
@@ -115,32 +115,76 @@ namespace GUI01 {
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		
 		times++; 
-		// create a starting page (times == 1)
-		if (comboBox1->SelectedItem == L"Fight" && times == 2)
+		
+		if (times == 1)
 		{
-			textBox1->Text = "You died.";
-			times = 0;
+			comboBox1->Visible = true;
+			textBox1->Text = L"On your walk through the forrest, you encounter a mama bear protecting her cubs. "
+				L" She looks quite hostile.  You have a dull sward with you.\r\n\r\nWHAT DO YOU DO\? \r\n";
 			comboBox1->Items->Clear();
+			comboBox1->Text = "";
+			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
+			button1->Text = L"Countinue";
+			
+		}
 
+		if (comboBox1->SelectedItem == L"Fight" && times == 2 || times == 3 && comboBox1->SelectedItem == L"Fight")
+		{
+			textBox1->Text = "The mother bear ripped you to shreads and made you unrecognizeable. You are dead. ";
+			comboBox1->Visible = false;
+			button1->Text = "Play Again";
+			dead = true;
+			if (times == 3)
+			{
+				times = 0;
+				button1->Text = L"Play";
+				textBox1->Text = L"Welcome to this adventure story.  Press \"Play\" to begin.";
+				comboBox1->Items->Clear();
+				comboBox1->Text = "";
+				comboBox1->Visible = false;
+				comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
+				dead = false;
+			}
+			
 		}
 		else
-			if (comboBox1->SelectedItem == L"RUN!!!" && times == 2)
+			if (dead == false && comboBox1->SelectedItem == L"RUN!!!" && times == 2)
 		{
 			button1->Text = "OK";
 			textBox1->Text = "You got away!\r\n\r\n(PRESS \"OK\" TO CONTINUE) ";
 			comboBox1->Items->Clear();
 			comboBox1->Text = "";
+			comboBox1->Visible = false;
 		}
-		if (times == 2 && comboBox1->Text == "")
+		if (dead == false && times == 3 && comboBox1->Text == "")
 		{
 			button1->Text = "continue";
 			textBox1->Text = "You take a break from running and you realize you are very hungry and thirsty.";
 			textBox1->Text = textBox1->Text + "  You feel as if you might die if you do not get food or water soon.";
 			textBox1->Text = textBox1->Text + "  You do not have anything on you, and your sword is too dull to kill anything.";
 			textBox1->Text = textBox1->Text + "  You see smoke comming from a building not far away. \r\n\r\nWHAT DO YOU DO ? ";
-			
-			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Go to the house", L"Stay put"});
+			comboBox1->Visible = true;
+			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Go to the house", L"Search for food somewhere else"});
 		}
+		if (times == 4 && comboBox1->SelectedItem == L"Search for food somewhere else" || times == 5 && comboBox1->SelectedItem == L"Search for food somewhere else")
+		{
+			textBox1->Text = "After searching for food for an hour, you collapse from exastion.  You die. ";
+			comboBox1->Visible = false;
+			button1->Text = "Play Again";
+			dead = true;
+			if (times == 5)
+			{
+				times = 0;
+				button1->Text = L"Play";
+				textBox1->Text = L"Welcome to this adventure story.  Press \"Play\" to begin.";
+				comboBox1->Items->Clear();
+				comboBox1->Text = "";
+				comboBox1->Visible = false;
+				comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
+				dead = false;
+			}
+		}
+		
 	
 
 		
