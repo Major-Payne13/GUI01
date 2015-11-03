@@ -69,9 +69,11 @@ namespace GUI01 {
 			// button1
 			// 
 			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->button1->Location = System::Drawing::Point(77, 265);
+			this->button1->Font = (gcnew System::Drawing::Font(L"Mistral", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button1->Location = System::Drawing::Point(154, 402);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(184, 23);
+			this->button1->Size = System::Drawing::Size(446, 53);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"Play";
 			this->button1->UseVisualStyleBackColor = true;
@@ -79,23 +81,25 @@ namespace GUI01 {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->textBox1->Location = System::Drawing::Point(12, 12);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(313, 201);
+			this->textBox1->Size = System::Drawing::Size(746, 294);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Text = L"Welcome to this adventure story.  Press \"Play\" to begin.";
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// comboBox1
 			// 
+			this->comboBox1->Font = (gcnew System::Drawing::Font(L"Magneto", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->comboBox1->FormattingEnabled = true;
 			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
-			this->comboBox1->Location = System::Drawing::Point(77, 219);
+			this->comboBox1->Location = System::Drawing::Point(154, 312);
 			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(184, 21);
+			this->comboBox1->Size = System::Drawing::Size(446, 33);
 			this->comboBox1->TabIndex = 3;
 			this->comboBox1->Visible = false;
 			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::comboBox1_SelectedIndexChanged);
@@ -104,7 +108,7 @@ namespace GUI01 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(352, 346);
+			this->ClientSize = System::Drawing::Size(783, 492);
 			this->Controls->Add(this->comboBox1);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button1);
