@@ -1,7 +1,7 @@
 #pragma once
 
 namespace GUI01 {
-
+	
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -47,7 +47,8 @@ namespace GUI01 {
 	protected:
 
 	private:
-		bool dead = false;
+	bool dead = false;
+	
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -68,7 +69,7 @@ namespace GUI01 {
 			// button1
 			// 
 			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->button1->Location = System::Drawing::Point(77, 207);
+			this->button1->Location = System::Drawing::Point(77, 265);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(184, 23);
 			this->button1->TabIndex = 0;
@@ -78,10 +79,12 @@ namespace GUI01 {
 			// 
 			// textBox1
 			// 
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->textBox1->Location = System::Drawing::Point(12, 12);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(310, 139);
+			this->textBox1->Size = System::Drawing::Size(313, 201);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Text = L"Welcome to this adventure story.  Press \"Play\" to begin.";
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
@@ -90,7 +93,7 @@ namespace GUI01 {
 			// 
 			this->comboBox1->FormattingEnabled = true;
 			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
-			this->comboBox1->Location = System::Drawing::Point(77, 157);
+			this->comboBox1->Location = System::Drawing::Point(77, 219);
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(184, 21);
 			this->comboBox1->TabIndex = 3;
@@ -115,7 +118,9 @@ namespace GUI01 {
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		
 		times++; 
-		
+		//if nothing is selected, nothing is messed up.
+		if (comboBox1->Text == "" && times != 1 && times != 3 && times != 5)
+			times--;
 		if (times == 1)
 		{
 			comboBox1->Visible = true;
@@ -164,6 +169,7 @@ namespace GUI01 {
 			textBox1->Text = textBox1->Text + "  You do not have anything on you, and your sword is too dull to kill anything.";
 			textBox1->Text = textBox1->Text + "  You see smoke comming from a building not far away. \r\n\r\nWHAT DO YOU DO ? ";
 			comboBox1->Visible = true;
+			comboBox1->Items->Clear();
 			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Go to the building", L"Search for food somewhere else"});
 		}
 		if (times == 4 && comboBox1->SelectedItem == L"Search for food somewhere else" || times == 5 && comboBox1->SelectedItem == L"Search for food somewhere else")
@@ -202,15 +208,33 @@ namespace GUI01 {
 			comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Be polite", L"Be strait forward", L"Never mind"});
 			
 		}
-	//write a line that ignores if nothing is selected and button is hit.
 		if (dead == false && times == 6 && comboBox1->SelectedItem == L"Be strait forward")
 		{
 			textBox1->Text = "\r\t\"Hi. I will buy some equiptment from you if you feed me\" ";
 			comboBox1->Visible = false;
 			comboBox1->Items->Clear();
 			comboBox1->Text = "";
-			textBox1->Text = textBox1->Text + "\r\n\r\n\r\t\"If you want some of my food, it'll be extra.\"";
+			textBox1->Text = textBox1->Text + "\r\n\r\n\r\t\"If you want some of my food, equiptment will be extra.\"";
 		}
+		else
+			if (dead == false && times == 6 && comboBox1->SelectedItem == L"Be polite")
+			{
+				textBox1->Text = "\r\t\"Please, Sir.  Can I have some food?  I am very hungry.  I have some money if you want me to pay.\"";
+				comboBox1->Visible = false;
+				comboBox1->Items->Clear();
+				comboBox1->Text = "";
+				textBox1->Text = textBox1->Text + "\r\n\r\t\"Ok.  I guess I can give you some food. But if you can, please buy some equiptment.  I'll give you a discount.\"";
+				textBox1->Text = textBox1->Text + "\r\nHe gives you some food.  You thank him, and look at how much money you have.  You only have enough money to buy one thing. ";
+			}
+			else
+				if (dead == false && times == 6 && comboBox1->SelectedItem == L"Never mind")
+				{
+					textBox1->Text = "\r\t\"Never Mind.\"";
+					comboBox1->Visible = false;
+					comboBox1->Items->Clear();
+					comboBox1->Text = "";
+					textBox1->Text = textBox1->Text + "|r\n\r\t\"Awwwwwwwwww.\"";
+				}
 	
 
 		
