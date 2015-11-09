@@ -48,6 +48,8 @@ namespace GUI01 {
 
 	private:
 	bool dead = false;
+	int power;
+	int defence;
 	
 		/// <summary>
 		/// Required designer variable.
@@ -71,7 +73,7 @@ namespace GUI01 {
 			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Mistral", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(154, 402);
+			this->button1->Location = System::Drawing::Point(460, 547);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(446, 53);
 			this->button1->TabIndex = 0;
@@ -86,7 +88,7 @@ namespace GUI01 {
 			this->textBox1->Location = System::Drawing::Point(12, 12);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(746, 294);
+			this->textBox1->Size = System::Drawing::Size(1343, 392);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Text = L"Welcome to this adventure story.  Press \"Play\" to begin.";
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
@@ -97,7 +99,7 @@ namespace GUI01 {
 				static_cast<System::Byte>(0)));
 			this->comboBox1->FormattingEnabled = true;
 			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
-			this->comboBox1->Location = System::Drawing::Point(154, 312);
+			this->comboBox1->Location = System::Drawing::Point(460, 444);
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(446, 33);
 			this->comboBox1->TabIndex = 3;
@@ -108,7 +110,7 @@ namespace GUI01 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(783, 492);
+			this->ClientSize = System::Drawing::Size(1367, 641);
 			this->Controls->Add(this->comboBox1);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button1);
@@ -123,7 +125,7 @@ namespace GUI01 {
 		
 		times++; 
 		//if nothing is selected, nothing is messed up.
-		if (comboBox1->Text == "" && times != 1 && times != 3 && times != 5)
+		if (comboBox1->Text == "" && times != 1 && times != 3 && times != 5 && times !=7)
 			times--;
 		if (times == 1)
 		{
@@ -224,23 +226,29 @@ namespace GUI01 {
 			if (dead == false && times == 6 && comboBox1->SelectedItem == L"Be polite")
 			{
 				textBox1->Text = "\r\t\"Please, Sir.  Can I have some food?  I am very hungry.  I have some money if you want me to pay.\"";
-				comboBox1->Visible = false;
+				
 				comboBox1->Items->Clear();
 				comboBox1->Text = "";
 				textBox1->Text = textBox1->Text + "\r\n\r\t\"Ok.  I guess I can give you some food. But if you can, please buy some equiptment.  I'll give you a discount.\"";
 				textBox1->Text = textBox1->Text + "\r\nHe gives you some food.  You thank him, and look at how much money you have.  You only have enough money to buy one thing. ";
+				textBox1->Text = textBox1->Text + "\r\n\r\n WHAT DO YOU BUY?";
+				comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Sword", L"Shield", L"Knife and Shield" });
 			}
 			else
 				if (dead == false && times == 6 && comboBox1->SelectedItem == L"Never mind")
 				{
-					textBox1->Text = "\r\t\"Never Mind.\"";
+					textBox1->Text = "\r\t\"Never mind,\" you tell him.";
 					comboBox1->Visible = false;
 					comboBox1->Items->Clear();
 					comboBox1->Text = "";
-					textBox1->Text = textBox1->Text + "|r\n\r\t\"Awwwwwwwwww.\"";
+					textBox1->Text = textBox1->Text + "\r\n\r\n\r\t\"Awwwwwwwwww,\" he bellows.";
 				}
 	
-
+		if (dead == false && times == 7 && comboBox1->SelectedItem == L"Sword")
+		{
+			textBox1->Text = "\r\t\"I would like to buy a sword, \" you tell Berdan.";
+			power = 10;
+		}
 		
 	}
 	private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
