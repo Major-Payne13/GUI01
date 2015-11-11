@@ -95,8 +95,8 @@ namespace GUI01 {
 			// 
 			// comboBox1
 			// 
-			this->comboBox1->Font = (gcnew System::Drawing::Font(L"Magneto", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
+			this->comboBox1->Font = (gcnew System::Drawing::Font(L"Monotype Corsiva", 15.75F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->comboBox1->FormattingEnabled = true;
 			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
 			this->comboBox1->Location = System::Drawing::Point(460, 444);
@@ -129,6 +129,8 @@ namespace GUI01 {
 			times--;
 		if (times == 1)
 		{
+			power = 3;
+			defence = 0;
 			comboBox1->Visible = true;
 			textBox1->Text = L"On your walk through the forrest, you encounter a mama bear protecting her cubs. "
 				L" She looks quite hostile.  You have a dull sward with you.\r\n\r\nWHAT DO YOU DO\? \r\n";
@@ -207,7 +209,7 @@ namespace GUI01 {
 		{
 			textBox1->Text = "You enter and see many wepons and armor hanging around the shop.  \r\n\r\t \"Hello?\" you call. \r\n\r\nA muscular man appears from the backroom door.";
 			textBox1->Text = textBox1->Text + "\r\n\r\t\"Hello!  I haven't seen a customer in a while.\" he proclames.  His deep voice startles you.\r\n\r\n ";
-			textBox1->Text = textBox1->Text + "WHAT DO YOU SAY TO HIM?";
+			textBox1->Text = textBox1->Text + "HOW DO YOU RESPOND?";
 			comboBox1->Visible = true;
 			comboBox1->Items->Clear();
 			comboBox1->Text = "";
@@ -230,24 +232,53 @@ namespace GUI01 {
 				comboBox1->Items->Clear();
 				comboBox1->Text = "";
 				textBox1->Text = textBox1->Text + "\r\n\r\t\"Ok.  I guess I can give you some food. But if you can, please buy some equiptment.  I'll give you a discount.\"";
-				textBox1->Text = textBox1->Text + "\r\nHe gives you some food.  You thank him, and look at how much money you have.  You only have enough money to buy one thing. ";
+				textBox1->Text = textBox1->Text + "\r\nHe gives you some food.  You thank him, and look at how much money you have.  You only have enough money to buy two things. ";
 				textBox1->Text = textBox1->Text + "\r\n\r\n WHAT DO YOU BUY?";
-				comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Sword", L"Shield", L"Knife and Shield" });
+				comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Sword and breastplate", L"Knife and Shield" });
 			}
 			else
-				if (dead == false && times == 6 && comboBox1->SelectedItem == L"Never mind")
+				if (times == 6 && comboBox1->SelectedItem == L"Never mind" || times == 7 && comboBox1->SelectedItem == L"Never mind")
 				{
 					textBox1->Text = "\r\t\"Never mind,\" you tell him.";
 					comboBox1->Visible = false;
-					comboBox1->Items->Clear();
-					comboBox1->Text = "";
 					textBox1->Text = textBox1->Text + "\r\n\r\n\r\t\"Awwwwwwwwww,\" he bellows.";
+					textBox1->Text = textBox1->Text + "\r\n\r\nYou leave the shop and encounter the mama bear again.  You can't run.  You die. ";
+					button1->Text = "Play Again";
+					dead = true;
+					if (dead == true && times == 7)
+					{
+						times = 0;
+						button1->Text = L"Play";
+						textBox1->Text = L"Welcome to this adventure story.  Press \"Play\" to begin.";
+						comboBox1->Items->Clear();
+						comboBox1->Text = "";
+						comboBox1->Visible = false;
+						comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"RUN!!!", L"Fight" });
+						dead = false;
+					}
 				}
 	
-		if (dead == false && times == 7 && comboBox1->SelectedItem == L"Sword")
+		if (dead == false && times == 7 && comboBox1->SelectedItem == L"Sword and breastplate")
 		{
-			textBox1->Text = "\r\t\"I would like to buy a sword, \" you tell Berdan.";
+			comboBox1->Visible = false;
+			textBox1->Text = "\r\t\"I would like to buy a sword and a breastplate, \" you tell Berdan.";
+			textBox1->Text = textBox1->Text + "\r\n\r\n\r\t\"Thank you, \" he says with a tear in his eye... Weird. ";
 			power = 10;
+			defence = 5;
+		}
+		if (dead == false && times == 7 && comboBox1->SelectedItem == L"Knife and Shield")
+		{
+			comboBox1->Visible = false;
+			textBox1->Text = "\r\t\"I would like to buy a knife and a shield, \"you tell Berdan.";
+			textBox1->Text = textBox1->Text + "\r\n\r\n\r\t\"Thank you, \" he says with a tear in his eye... Weird. ";
+			power = 5;
+			defence = 10;
+		}
+		if (dead == false && times == 8 && power >= 5)
+		{
+			textBox1->Text = "As you thank Berdan and leave the shop, you encounter the bear as befor, but something is different this time.  Epic battle music begins to play from some unknown location.";
+			textBox1->Text = textBox1->Text + "\r\n\r\n You do not have a chance of running this time, so you draw your wepon. ";
+
 		}
 		
 	}
